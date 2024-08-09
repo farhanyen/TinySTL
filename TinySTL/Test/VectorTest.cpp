@@ -248,3 +248,8 @@ namespace TinySTL{
 		}
 	}
 }
+
+int main () {
+    TinySTL::VectorTest::testAllCases();
+    return 0;
+}

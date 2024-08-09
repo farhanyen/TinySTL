@@ -2,7 +2,7 @@
 #define _VECTOR_IMPL_H_
 
 namespace TinySTL{
-	//***********************¹¹Ôì£¬¸´ÖÆ£¬Îö¹¹Ïà¹Ø***********************
+	//***********************ï¿½ï¿½ï¿½ì£¬ï¿½ï¿½ï¿½Æ£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½***********************
 	template<class T, class Alloc>
 	vector<T, Alloc>::~vector(){
 		destroyAndDeallocateAll();
@@ -18,7 +18,7 @@ namespace TinySTL{
 	template<class T, class Alloc>
 	template<class InputIterator>
 	vector<T, Alloc>::vector(InputIterator first, InputIterator last){
-		//´¦ÀíÖ¸ÕëºÍÊý×Ö¼äµÄÇø±ðµÄº¯Êý
+		//ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Äºï¿½ï¿½ï¿½
 		vector_aux(first, last, typename std::is_integral<InputIterator>::type());
 	}
 	template<class T, class Alloc>
@@ -50,9 +50,9 @@ namespace TinySTL{
 		}
 		return *this;
 	}
-	//*************ºÍÈÝÆ÷µÄÈÝÁ¿Ïà¹Ø******************************
+	//*************ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½******************************
 	template<class T, class Alloc>
-	void vector<T, Alloc>::resize(size_type n, value_type val = value_type()){
+	void vector<T, Alloc>::resize(size_type n, value_type val){
 		if (n < size()){
 			dataAllocator::destroy(start_ + n, finish_);
 			finish_ = start_ + n;
@@ -85,16 +85,16 @@ namespace TinySTL{
 		finish_ = newFinish;
 		endOfStorage_ = start_ + n;
 	}
-	//***************ÐÞ¸ÄÈÝÆ÷µÄÏà¹Ø²Ù×÷**************************
+	//***************ï¿½Þ¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø²ï¿½ï¿½ï¿½**************************
 	template<class T, class Alloc>
 	typename vector<T, Alloc>::iterator vector<T, Alloc>::erase(iterator position){
 		return erase(position, position + 1);
 	}
 	template<class T, class Alloc>
 	typename vector<T, Alloc>::iterator vector<T, Alloc>::erase(iterator first, iterator last){
-		//Î²²¿²ÐÁô¶ÔÏóÊý
+		//Î²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		difference_type lenOfTail = end() - last;
-		//É¾È¥µÄ¶ÔÏóÊýÄ¿
+		//É¾È¥ï¿½Ä¶ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿
 		difference_type lenOfRemoved = last - first;
 		finish_ = finish_ - lenOfRemoved;
 		for (; lenOfTail != 0; --lenOfTail){
@@ -199,33 +199,25 @@ namespace TinySTL{
 	void vector<T, Alloc>::push_back(const value_type& value){
 		insert(end(), value);
 	}
-	//***********Âß¼­±È½Ï²Ù×÷Ïà¹Ø*******************
+	//***********ï¿½ß¼ï¿½ï¿½È½Ï²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*******************
+
+
 	template<class T, class Alloc>
-	bool vector<T, Alloc>::operator == (const vector& v)const{
-		if (size() != v.size()){
+	bool operator== (const vector<T, Alloc>& v1, const vector<T, Alloc>& v2){
+		if (v1.size() != v2.size()){
 			return false;
 		}
-		else{
-			auto ptr1 = start_;
-			auto ptr2 = v.start_;
-			for (; ptr1 != finish_ && ptr2 != v.finish_; ++ptr1, ++ptr2){
-				if (*ptr1 != *ptr2)
-					return false;
-			}
-			return true;
+		auto ptr1 = v1.start_;
+		auto ptr2 = v2.start_;
+		for (; ptr1 != v1.finish_ && ptr2 != v2.finish_; ++ptr1, ++ptr2){
+			if (*ptr1 != *ptr2)
+				return false;
 		}
+		return true;
 	}
+
 	template<class T, class Alloc>
-	bool vector<T, Alloc>::operator != (const vector& v)const{
-		return !(*this == v);
-	}
-	template<class T, class Alloc>
-	bool operator == (const vector<T, Alloc>& v1, const vector<T, Alloc>& v2){
-		//return v1 == v2;
-		return v1.operator==(v2);
-	}
-	template<class T, class Alloc>
-	bool operator != (const vector<T, Alloc>& v1, const vector<T, Alloc>& v2){
+	bool operator!= (const vector<T, Alloc>& v1, const vector<T, Alloc>& v2){
 		return !(v1 == v2);
 	}
 	template<class T, class Alloc>
@@ -238,11 +230,13 @@ namespace TinySTL{
 		start_ = t;
 		endOfStorage_ = finish_;
 	}
+
 	template<class T, class Alloc>
 	void vector<T, Alloc>::clear(){
 		dataAllocator::destroy(start_, finish_);
 		finish_ = start_;
 	}
+
 	template<class T, class Alloc>
 	void vector<T, Alloc>::swap(vector& v){
 		if (this != &v){
@@ -251,11 +245,13 @@ namespace TinySTL{
 			TinySTL::swap(endOfStorage_, v.endOfStorage_);
 		}
 	}
+
 	template<class T, class Alloc>
 	void vector<T, Alloc>::pop_back(){
 		--finish_;
 		dataAllocator::destroy(finish_);
 	}
+
 	template<class T, class Alloc>
 	void vector<T, Alloc>::destroyAndDeallocateAll(){
 		if (capacity() != 0){
@@ -263,6 +259,7 @@ namespace TinySTL{
 			dataAllocator::deallocate(start_, capacity());
 		}
 	}
+
 	template<class T, class Alloc>
 	void vector<T, Alloc>::allocateAndFillN(const size_type n, const value_type& value){
 		start_ = dataAllocator::allocate(n);

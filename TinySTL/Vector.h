@@ -10,6 +10,7 @@
 #include "ReverseIterator.h"
 #include "UninitializedFunctions.h"
 
+
 namespace TinySTL{
 	//********* vector *************
 	template<class T, class Alloc = allocator<T>>
@@ -33,7 +34,7 @@ namespace TinySTL{
 		typedef size_t								size_type;
 		typedef ptrdiff_t	difference_type;
 	public:
-		//¹¹Ôì£¬¸´ÖÆ£¬Îö¹¹Ïà¹Øº¯Êý
+		//ï¿½ï¿½ï¿½ì£¬ï¿½ï¿½ï¿½Æ£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Øºï¿½ï¿½ï¿½
 		vector()
 			:start_(0), finish_(0), endOfStorage_(0){}
 		explicit vector(const size_type n);
@@ -46,11 +47,9 @@ namespace TinySTL{
 		vector& operator = (vector&& v);
 		~vector();
 
-		//±È½Ï²Ù×÷Ïà¹Ø
-		bool operator == (const vector& v)const;
-		bool operator != (const vector& v)const;
+		//ï¿½È½Ï²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-		//µü´úÆ÷Ïà¹Ø
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		iterator begin(){ return (start_); }
 		const_iterator begin()const{ return (start_); }
 		const_iterator cbegin()const{ return (start_); }
@@ -62,7 +61,7 @@ namespace TinySTL{
 		reverse_iterator rend(){ return reverse_iterator(start_); }
 		const_reverse_iterator crend()const{ return const_reverse_iterator(start_); }
 
-		//ÓëÈÝÁ¿Ïà¹Ø
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		difference_type size()const{ return finish_ - start_; }
 		difference_type capacity()const{ return endOfStorage_ - start_; }
 		bool empty()const{ return start_ == finish_; }
@@ -70,15 +69,15 @@ namespace TinySTL{
 		void reserve(size_type n);
 		void shrink_to_fit();
 
-		//·ÃÎÊÔªËØÏà¹Ø
+		//ï¿½ï¿½ï¿½ï¿½Ôªï¿½ï¿½ï¿½ï¿½ï¿½
 		reference operator[](const difference_type i){ return *(begin() + i); }
 		const_reference operator[](const difference_type i)const{ return *(cbegin() + i); }
 		reference front(){ return *(begin()); }
 		reference back(){ return *(end() - 1); }
 		pointer data(){ return start_; }
 
-		//ÐÞ¸ÄÈÝÆ÷Ïà¹ØµÄ²Ù×÷
-		//Çå¿ÕÈÝÆ÷£¬Ïú»ÙÈÝÆ÷ÖÐµÄËùÓÐ¶ÔÏó²¢Ê¹ÈÝÆ÷µÄsizeÎª0£¬µ«²»»ØÊÕÈÝÆ÷ÒÑÓÐµÄ¿Õ¼ä
+		//ï¿½Þ¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ØµÄ²ï¿½ï¿½ï¿½
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ðµï¿½ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½sizeÎª0ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÐµÄ¿Õ¼ï¿½
 		void clear();
 		void swap(vector& v);
 		void push_back(const value_type& value);
@@ -90,8 +89,8 @@ namespace TinySTL{
 		iterator erase(iterator position);
 		iterator erase(iterator first, iterator last);
 
-		//ÈÝÆ÷µÄ¿Õ¼äÅäÖÃÆ÷Ïà¹Ø
-		Alloc get_allocator(){ return dataAllocator; }
+		//ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿Õ¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		Alloc get_allocator(){ return dataAllocator(); }
 	private:
 		void destroyAndDeallocateAll();
 		void allocateAndFillN(const size_type n, const value_type& value);
@@ -111,12 +110,12 @@ namespace TinySTL{
 		void reallocateAndFillN(iterator position, const size_type& n, const value_type& val);
 		size_type getNewCapacity(size_type len)const;
 	public:
-		template<class T, class Alloc>
-		friend bool operator == (const vector<T, Alloc>& v1, const vector<T, Alloc>& v2);
-		template<class T, class Alloc>
-		friend bool operator != (const vector<T, Alloc>& v1, const vector<T, Alloc>& v2);
+		template <typename T1, typename Alloc1>
+		friend bool operator== (const vector<T1, Alloc1>& v1, const vector<T1, Alloc1>& v2);
+		template <typename T1, typename Alloc1>
+		friend bool operator!= (const vector<T1, Alloc1>& v1, const vector<T1, Alloc1>& v2);
+
 	};// end of class vector
 }
-
-#include "Detail\Vector.impl.h"
+#include "./Detail/Vector.impl.h"
 #endif

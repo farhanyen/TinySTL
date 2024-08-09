@@ -19,7 +19,7 @@ namespace TinySTL{
 		Iterator base_;
 		Iterator cur_;
 	public:
-		//¹¹Ôì¡£¸´ÖÆ£¬Îö¹¹Ïà¹Ø
+		//ï¿½ï¿½ï¿½ì¡£ï¿½ï¿½ï¿½Æ£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		reverse_iterator_t() :base_(0), cur_(0){}
 		//explicit reverse_iterator_t(const iterator_type& it) :base_(it), cur_(it - 1){}
 		explicit reverse_iterator_t(const iterator_type& it) :base_(it){
@@ -33,7 +33,7 @@ namespace TinySTL{
 			cur_ = --temp;
 		};
 
-		//ÆäËû³ÉÔ±º¯Êý
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô±ï¿½ï¿½ï¿½ï¿½
 		iterator_type base(){ return base_; }
 		reference operator*(){ return (*cur_); }
 		const_reference operator*()const{ return(*cur_); }
@@ -97,33 +97,34 @@ namespace TinySTL{
 			return it;
 		}
 	public:
-		template <class Iterator>
-		friend bool operator == (const reverse_iterator_t<Iterator>& lhs, 
-								const reverse_iterator_t<Iterator>& rhs);
-		template <class Iterator>
-		friend bool operator != (const reverse_iterator_t<Iterator>& lhs, 
-								const reverse_iterator_t<Iterator>& rhs);
-		template <class Iterator>
-		friend bool operator < (const reverse_iterator_t<Iterator>& lhs,
-								const reverse_iterator_t<Iterator>& rhs);
-		template <class Iterator>
-		friend bool operator <= (const reverse_iterator_t<Iterator>& lhs,
-								const reverse_iterator_t<Iterator>& rhs);
-		template <class Iterator>
-		friend bool operator > (const reverse_iterator_t<Iterator>& lhs,
-								const reverse_iterator_t<Iterator>& rhs);
-		template <class Iterator>
-		friend bool operator >= (const reverse_iterator_t<Iterator>& lhs,
-								const reverse_iterator_t<Iterator>& rhs);
+		template <class It>
+		friend bool operator == (const reverse_iterator_t<It>& lhs,
+								const reverse_iterator_t<It>& rhs);
+		template <class It>
+		friend bool operator != (const reverse_iterator_t<It>& lhs,
+								const reverse_iterator_t<It>& rhs);
+		template <class It>
+		friend bool operator < (const reverse_iterator_t<It>& lhs,
+								const reverse_iterator_t<It>& rhs);
+		template <class It>
+		friend bool operator <= (const reverse_iterator_t<It>& lhs,
+								const reverse_iterator_t<It>& rhs);
+		template <class It>
+		friend bool operator > (const reverse_iterator_t<It>& lhs,
+								const reverse_iterator_t<It>& rhs);
+		template <class It>
+		friend bool operator >= (const reverse_iterator_t<It>& lhs,
+								const reverse_iterator_t<It>& rhs);
 
-		template <class Iterator>
-		friend reverse_iterator_t<Iterator> operator + (
-			typename reverse_iterator_t<Iterator>::difference_type n,
-			const reverse_iterator_t<Iterator>& rev_it);
-		template <class Iterator>
-		friend typename reverse_iterator_t<Iterator>::difference_type operator- (
-			const reverse_iterator_t<Iterator>& lhs,
-			const reverse_iterator_t<Iterator>& rhs);
+		template <class It>
+		friend reverse_iterator_t<It> operator+ (
+			typename reverse_iterator_t<It>::difference_type n,
+			const reverse_iterator_t<It>& rev_it);
+
+		template <class It>
+		friend typename reverse_iterator_t<It>::difference_type operator- (
+			const reverse_iterator_t<It>& lhs,
+			const reverse_iterator_t<It>& rhs);
 	};// end of reverse_iterator_t
 
 	template<class Iterator>
